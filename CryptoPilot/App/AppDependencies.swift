@@ -5,14 +5,26 @@
 //  Created by ipeerless on 16/10/2026.
 //
 
-import SwiftUI
+import Foundation
+import Observation
 
-struct AppDependencies: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@MainActor
+@Observable
+final class AppDependencies {
+    
+    var transactionStore: TransactionStore?
+
+    let marketDataService: any MarketDataService
+
+    init(
+        marketDataService: (any MarketDataService)? = nil
+    ) {
+        self.marketDataService = marketDataService ?? CoinGeckoService()
     }
-}
 
-#Preview {
-    AppDependencies()
+    func makeMarketViewModel() -> MarketViewModel {
+        MarketViewModel(
+            marketDataService: marketDataService
+        )
+    }
 }

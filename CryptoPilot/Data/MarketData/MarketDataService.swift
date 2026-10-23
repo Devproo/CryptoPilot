@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+protocol MarketDataService {
+    func fetchPrices(
+        for assetIDs: [String]
+    ) async throws -> [MarketPrice]
+}

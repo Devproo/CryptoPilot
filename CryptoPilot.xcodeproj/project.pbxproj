@@ -6,19 +6,73 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		7FB92EEE3083210B00313057 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FBF78CD3081CC5200BA9228 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FBF78D43081CC5200BA9228;
+			remoteInfo = CryptoPilot;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		7FB92EEA3083210B00313057 /* CryptoPilotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoPilotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FBF78D53081CC5200BA9228 /* CryptoPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7FB92EF43083217800313057 /* Exceptions for "CryptoPilot" folder in "CryptoPilot" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Tests/UnitTests/MarketDataServiceTests.swift,
+				Tests/UnitTests/MarketViewModelTests.swift,
+				Tests/UnitTests/MockMarketDataService.swift,
+				Tests/UnitTests/PortfolioCalculatorTests.swift,
+				Tests/UnitTests/PortfolioViewModelTests.swift,
+				Tests/UnitTests/TransactionStoreTests.swift,
+			);
+			target = 7FBF78D43081CC5200BA9228 /* CryptoPilot */;
+		};
+		7FB92EF53083217800313057 /* Exceptions for "CryptoPilot" folder in "CryptoPilotTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Tests/UnitTests/MarketDataServiceTests.swift,
+				Tests/UnitTests/MarketViewModelTests.swift,
+				Tests/UnitTests/MockMarketDataService.swift,
+				Tests/UnitTests/PortfolioCalculatorTests.swift,
+				Tests/UnitTests/PortfolioViewModelTests.swift,
+				Tests/UnitTests/TransactionStoreTests.swift,
+			);
+			target = 7FB92EE93083210B00313057 /* CryptoPilotTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7FB92EEB3083210B00313057 /* CryptoPilotTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CryptoPilotTests;
+			sourceTree = "<group>";
+		};
 		7FBF78D73081CC5200BA9228 /* CryptoPilot */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7FB92EF43083217800313057 /* Exceptions for "CryptoPilot" folder in "CryptoPilot" target */,
+				7FB92EF53083217800313057 /* Exceptions for "CryptoPilot" folder in "CryptoPilotTests" target */,
+			);
 			path = CryptoPilot;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7FB92EE73083210B00313057 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FBF78D23081CC5200BA9228 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				7FBF78D73081CC5200BA9228 /* CryptoPilot */,
+				7FB92EEB3083210B00313057 /* CryptoPilotTests */,
 				7FBF78D63081CC5200BA9228 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				7FBF78D53081CC5200BA9228 /* CryptoPilot.app */,
+				7FB92EEA3083210B00313057 /* CryptoPilotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +104,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7FB92EE93083210B00313057 /* CryptoPilotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FB92EF03083210B00313057 /* Build configuration list for PBXNativeTarget "CryptoPilotTests" */;
+			buildPhases = (
+				7FB92EE63083210B00313057 /* Sources */,
+				7FB92EE73083210B00313057 /* Frameworks */,
+				7FB92EE83083210B00313057 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FB92EEF3083210B00313057 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7FB92EEB3083210B00313057 /* CryptoPilotTests */,
+			);
+			name = CryptoPilotTests;
+			packageProductDependencies = (
+			);
+			productName = CryptoPilotTests;
+			productReference = 7FB92EEA3083210B00313057 /* CryptoPilotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7FBF78D43081CC5200BA9228 /* CryptoPilot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FBF78E23081CC5700BA9228 /* Build configuration list for PBXNativeTarget "CryptoPilot" */;
@@ -80,6 +159,10 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					7FB92EE93083210B00313057 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 7FBF78D43081CC5200BA9228;
+					};
 					7FBF78D43081CC5200BA9228 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -100,11 +183,19 @@
 			projectRoot = "";
 			targets = (
 				7FBF78D43081CC5200BA9228 /* CryptoPilot */,
+				7FB92EE93083210B00313057 /* CryptoPilotTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7FB92EE83083210B00313057 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FBF78D33081CC5200BA9228 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +206,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7FB92EE63083210B00313057 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FBF78D13081CC5200BA9228 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +222,59 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7FB92EEF3083210B00313057 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FBF78D43081CC5200BA9228 /* CryptoPilot */;
+			targetProxy = 7FB92EEE3083210B00313057 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7FB92EF13083210B00313057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2BWS35SAJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = none.CryptoPilotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CryptoPilot.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CryptoPilot";
+			};
+			name = Debug;
+		};
+		7FB92EF23083210B00313057 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2BWS35SAJK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = none.CryptoPilotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CryptoPilot.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CryptoPilot";
+			};
+			name = Release;
+		};
 		7FBF78E03081CC5700BA9228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -256,11 +406,13 @@
 				DEVELOPMENT_TEAM = 2BWS35SAJK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Crypto-Pilot";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -288,11 +440,13 @@
 				DEVELOPMENT_TEAM = 2BWS35SAJK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Crypto-Pilot";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +467,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7FB92EF03083210B00313057 /* Build configuration list for PBXNativeTarget "CryptoPilotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FB92EF13083210B00313057 /* Debug */,
+				7FB92EF23083210B00313057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7FBF78D03081CC5200BA9228 /* Build configuration list for PBXProject "CryptoPilot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

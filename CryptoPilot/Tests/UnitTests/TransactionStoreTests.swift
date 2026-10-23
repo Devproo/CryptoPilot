@@ -5,31 +5,104 @@
 //  Created by ipeerless on 18/10/2026.
 //
 
+
 import XCTest
+import SwiftData
+@testable import CryptoPilot
 
+@MainActor
 final class TransactionStoreTests: XCTestCase {
+    func testSaveAndFetchTransaction() throws {
+        let schema = Schema([StoredTransaction.self])
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: true
+        )
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
+        let store = TransactionStore(
+            context: container.mainContext
+        )
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let transaction = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .buy,
+            quantity: 0.5,
+            pricePerCoin: 60000,
+            fee: 10
+        )
+
+        try store.save(transaction)
+
+        let savedTransactions = try store.fetchAll()
+
+        XCTAssertEqual(savedTransactions.count, 1)
+        XCTAssertEqual(savedTransactions.first?.id, transaction.id)
+        XCTAssertEqual(savedTransactions.first?.assetID, "bitcoin")
+        XCTAssertEqual(savedTransactions.first?.quantity, Decimal(string: "0.5"))
+        XCTAssertEqual(savedTransactions.first?.fee, Decimal(10))
+    }
+    
+    func testDeleteRemovesSavedTransaction() throws {
+        let schema = Schema([StoredTransaction.self])
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: true
+        )
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
+        let store = TransactionStore(
+            context: container.mainContext
+        )
+
+        let transaction = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .buy,
+            quantity: 1,
+            pricePerCoin: 60000
+        )
+
+        try store.save(transaction)
+        try store.delete(id: transaction.id)
+
+        XCTAssertTrue(try store.fetchAll().isEmpty)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    func testFetchPreservesTransactionTypeAndTransferCostBasis() throws {
+        let schema = Schema([StoredTransaction.self])
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: true
+        )
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
+        let store = TransactionStore(
+            context: container.mainContext
+        )
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+        let transaction = PortfolioTransaction(
+            assetID: "ethereum",
+            type: .transferIn,
+            quantity: 2,
+            pricePerCoin: 0,
+            transferCostBasis: 4000
+        )
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        try store.save(transaction)
+
+        let fetched = try store.fetchAll().first
+
+        XCTAssertEqual(fetched?.type, .transferIn)
+        XCTAssertEqual(
+            fetched?.transferCostBasis,
+            Decimal(4000)
+        )
     }
 
 }

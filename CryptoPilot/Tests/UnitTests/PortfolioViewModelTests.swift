@@ -5,31 +5,108 @@
 //  Created by ipeerless on 18/10/2026.
 //
 
-import XCTest
 
+
+import XCTest
+import SwiftData
+@testable import CryptoPilot
+
+@MainActor
 final class PortfolioViewModelTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    private func makeViewModel() throws -> PortfolioViewModel {
+        let schema = Schema([StoredTransaction.self])
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: true
+        )
+        let container = try ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
+
+        let store = TransactionStore(context: container.mainContext)
+        return PortfolioViewModel(transactionStore: store)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testAddTransactionLoadsSavedTransaction() throws {
+        let viewModel = try makeViewModel()
+
+        let transaction = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .buy,
+            quantity: 1,
+            pricePerCoin: 60000
+        )
+
+        XCTAssertTrue(viewModel.addTransaction(transaction))
+        XCTAssertEqual(viewModel.transactions.count, 1)
+        XCTAssertEqual(viewModel.transactions.first?.id, transaction.id)
+        XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testDeleteTransactionRemovesItFromViewModel() throws {
+        let viewModel = try makeViewModel()
+
+        let transaction = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .buy,
+            quantity: 1,
+            pricePerCoin: 60000
+        )
+
+        XCTAssertTrue(viewModel.addTransaction(transaction))
+
+        viewModel.deleteTransaction(id: transaction.id)
+
+        XCTAssertTrue(viewModel.transactions.isEmpty)
+        XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testHoldingUsesPortfolioCalculator() throws {
+        let viewModel = try makeViewModel()
+
+        let asset = CryptoAsset(
+            id: "bitcoin",
+            name: "Bitcoin",
+            symbol: "BTC"
+        )
+
+        let transaction = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .buy,
+            quantity: 2,
+            pricePerCoin: 100
+        )
+
+        XCTAssertTrue(viewModel.addTransaction(transaction))
+
+        let holding = viewModel.holding(
+            for: asset,
+            currentPrice: 150
+        )
+
+        XCTAssertEqual(holding?.quantity, Decimal(2))
+        XCTAssertEqual(holding?.costBasis, Decimal(200))
+        XCTAssertEqual(holding?.currentValue, Decimal(300))
+        XCTAssertEqual(holding?.unrealizedProfitLoss, Decimal(100))
     }
 
+    func testSaleWithInsufficientHoldingsIsRejected() throws {
+        let viewModel = try makeViewModel()
+
+        let sale = PortfolioTransaction(
+            assetID: "bitcoin",
+            type: .sell,
+            quantity: 1,
+            pricePerCoin: 60000
+        )
+
+        XCTAssertFalse(viewModel.addTransaction(sale))
+        XCTAssertTrue(viewModel.transactions.isEmpty)
+        XCTAssertEqual(
+            viewModel.errorMessage,
+            "Insufficient holdings for this transaction."
+        )
+    }
 }

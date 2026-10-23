@@ -5,12 +5,15 @@
 //  Created by ipeerless on 17/10/2026.
 //
 
-import Testing
+import Foundation
+@testable import CryptoPilot
 
-struct MockMarketDataService {
+struct MockMarketDataService: MarketDataService {
+    let prices: [MarketPrice]
 
-    @Test func <#test function name#>() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    func fetchPrices(
+        for assetIDs: [String]
+    ) async throws -> [MarketPrice] {
+        prices.filter { assetIDs.contains($0.assetID) }
     }
-
 }
